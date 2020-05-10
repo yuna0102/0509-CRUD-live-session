@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+
+
+<div class="contatiner">
+    <form action="{% url 'create_blog' %}" method="post">
+        <!-- 조회는 get 방식, 생성은 porst 방식  get은 url을 통해 접근 가능(삭제, 수정도 url로 접근 가능하므로 좀 위험)-->
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="exampleInputEmail1">제목</label>
+            <input class="form-control" name="title">
+
+        </div>
+        <div class="form-group">
+            <label for="exampleInputPassword1">내용</label>
+            <input type="text" class="form-control" name="content" id="exampleInputPassword1">
+        </div>
+        <input type="submit" value="submit" class="btn btn-success">
+
+    </form>
+</div>
+
+
+
+{% endblock %}
