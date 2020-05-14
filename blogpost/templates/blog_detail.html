@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+
+
+<div class="contatiner">
+    <h1>제가 detail 입니다.</h1>
+    <form action="{% url 'update_blog' blog.id %}" method="post">
+        <!-- 조회는 get 방식, 생성은 post 방식  get은 url을 통해 접근 가능(삭제, 수정도 url로 접근 가능하므로 좀 위험)l-->
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="exampleInputEmail1">제목</label>
+            <input class="form-control" name="title" value="{{blog.title}}">
+
+        </div>
+        <div class="form-group">
+            <label for="exampleInputPassword1">내용</label>
+            <input type="text" class="form-control" name="content" id="exampleInputPassword1" value="{{blog.content}}">
+        </div>
+        <input type="submit" value="update" class="btn btn-primary">
+        <!-- type="submit"이라는 것 자체가 form을 실행시키는 기능을 함  -->
+        <a href="{% url 'delete_blog' blog.id %}"><input type="submit" value="delete" class="btn btn-danger"></a>
+        <!-- delete는 form 태그가 아니라 따로 링크를 걸어줄 것 -->
+        <!-- delete는 form 태그를 사용할 필요가 없음. 왜냐면 불러올 필요가 없고 그냥 없앨 거니까!! -->
+
+    </form>
+</div>
+
+
+
+{% endblock %}

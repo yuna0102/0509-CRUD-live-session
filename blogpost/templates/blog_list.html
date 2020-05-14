@@ -3,12 +3,45 @@
 
 {% block content %}
 
-{%for blog in blogs %}
+
 <div class="contatiner">
-    <h3> Title : {{ blog.title}}</h3>
-    <h4> Contnet : {{blog.content}}</h4>
+    {% if user.request,is_authenticated}
+
+    {{user.username}} 환영합니다! 
+
+    {% endif %}
+
+
+    {%for blog in posts %}
+    <a href="{% url 'read_blog_one' blog.id %}">
+        <!-- blog.id를 read_blog_one이라는 함수에 하나씩 넘겨줌 그러면 url 상에서 <int:~>로 설정해줌
+            그 다음에 view에 가서 (reqeust, pk)라고 pk가 만들어지면 view.py에서도 pk를 만들 수 잇음
+        -->
+        <h3> Title : {{blog.title}}</h3>
+    </a>
     <hr />
+    {% endfor %}
+
+    <!-- 페이지네이션은 각 blog가 아니라 전체 blog인 posts에 관해서. 즉, posts를 다 확인해야 페이지 넘버를 부여 할 수 
+    있기 때문에 posts 변수를 이용함 -->
+    {% if posts.has_previous %}
+    <a href="?page=1">맨 앞으로</a>
+    <!-- 페이지가 1쪽으로 넘어간다. -->
+    <a href="?page={{posts.previous_page_number}}">이전으로</a>
+    <!-- get 방식이기 때문에 ?로 변수값을 받음 -->
+    {% endif %}
+
+    <span>{{posts.number}}</span>
+    <!-- 현재 내가 있는 페이지 넘버 -->
+    <span>/</span>
+    <span>{{posts.paginator.num_pages}}</span>
+    <!-- 전체 페이지가 몇 개 있냐 -->
+
+    {% if posts.has_next %}
+    <a href="?page={{posts.next_page_number}}">다음으로</a>
+    <a href="?page={{posts.paginator.num_pages}}">맨 뒤로</a>
+    {% endif %}
 </div>
-{% endfor %}
+
 
 {% endblock %}

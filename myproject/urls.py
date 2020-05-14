@@ -16,10 +16,18 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 import blogpost.views
+import accounts.views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', blogpost.views.read_blog_list, name='read_blog_list'),
-    path('blog/new', blogpost.views.blog_new, name="blog_new"),
+    path('blog/new', blogpost.views.blog_new, name='blog_new'),
     path('blog/create', blogpost.views.create_blog, name="create_blog"),
+    path('blog/detail/<int:pk>', blogpost.views.read_blog_one, name='read_blog_one'),
+    # int: 변수 명이랑 views.py에 있는 변수 명이랑 같아야해
+    path('blog/update/<int:pk>', blogpost.views.update_blog, name='update_blog'),
+    path('blog/delete/<int:pk>', blogpost.views.delete_blog, name='delete_blog'),
+    path('signup/', accounts.views.signup, name="signup"),
+    path('login/', accounts.views.login, name="login"),
+    path('logout/', accounts.views.logout, name="logout"),
 ]

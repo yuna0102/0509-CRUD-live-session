@@ -6,7 +6,7 @@
 
 <div class="contatiner">
     <form action="{% url 'create_blog' %}" method="post">
-        <!-- 조회는 get 방식, 생성은 porst 방식  get은 url을 통해 접근 가능(삭제, 수정도 url로 접근 가능하므로 좀 위험)-->
+        <!-- 조회는 get 방식, 생성은 post 방식  get은 url을 통해 접근 가능(삭제, 수정도 url로 접근 가능하므로 좀 위험)l-->
         {% csrf_token %}
         <div class="form-group">
             <label for="exampleInputEmail1">제목</label>
